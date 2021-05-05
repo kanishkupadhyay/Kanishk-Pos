@@ -1,0 +1,42 @@
+<div style="display: flex; flex-direction: column; align-items: center;" >
+    <ng-template #elseblock>
+        <h1>Nothing added</h1>
+    </ng-template>
+  <table *ngIf="data.length!==0;else elseblock" border="1" class="table">
+      <tr>
+          <th>Index</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Action</th>
+      </tr>
+      <tr *ngFor="let detail of data;index as i">
+          <td>{{i+1}}</td>
+          <td>{{detail.name}}</td>
+          <td class="span"><span><button (click)="decreaseItem(detail)" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"><mat-icon>remove</mat-icon></button></span> {{detail.quantity}}<span><button (click)="increase(detail)" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"><mat-icon>add</mat-icon></button></span></td>
+          <td>{{detail.price}}</td>
+          <td><button (click)="deleteItem(i,detail)" mat-mini-fab color="warn" aria-label="Example icon button with a menu icon"><mat-icon>delete_outline</mat-icon></button></td>
+      </tr>
+  </table>
+
+  <div class="total" *ngIf="total!==0">
+      <h2>Total:- {{total|currency:'INR'}}</h2>
+  </div>
+
+</div>
+>
+<div class="forms">
+    <h1>Add Items</h1>
+    <div class="add-data ">
+        <form  (ngSubmit)="onAddData(myForm)" #myForm="ngForm">
+            <mat-form-field class="example-full-width">
+            <input required matInput ngModel name="proName"  type="text" placeholder="Product Name">
+            </mat-form-field>
+            <div></div>
+            <mat-form-field class="example-full-width">
+            <input required matInput type="number" ngModel name="proPrice" placeholder="Product Price">
+            </mat-form-field><div></div>
+            <button mat-raised-button color="primary">Add Product</button>
+        </form>
+    </div>
+</div>
